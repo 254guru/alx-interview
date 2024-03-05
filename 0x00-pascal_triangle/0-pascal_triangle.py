@@ -17,10 +17,3 @@ def pascal_triangle(n):
         triangle.append(row)
 
     return triangle
-
-
-# Test the function with the provided main script
-if __name__ == "__main__":
-    triangle = pascal_triangle(5)
-    for row in triangle:
-        print(row)
