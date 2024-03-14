@@ -12,6 +12,7 @@ Write a method that determines if all the boxes can be opened.
 <li>The first box boxes[0] is unlocked<li>
 <li>Return True if all boxes can be opened, else return False</li>
 </ul>
+
 		carrie@ubuntu:~/0x01-lockboxes$ cat main_0.py
 		#!/usr/bin/python3
 
