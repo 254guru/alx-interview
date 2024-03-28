@@ -1,40 +1,47 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+
 import sys
-from collections import defaultdict
+import signal
 
+# Dictionary to store status code counts
+status_counts = {
+    200: 0,
+    301: 0,
+    400: 0,
+    401: 0,
+    403: 0,
+    404: 0,
+    405: 0,
+    500: 0
+}
 
-def print_statistics(file_sizes, status_codes):
-    print("File size:", sum(file_sizes))
-    for code in sorted(status_codes.keys()):
-        print(f"{code}: {status_codes[code]}")
+total_file_size = 0
+line_count = 0
 
+def print_statistics():
+    global total_file_size
+    global line_count
+    print(f"Total file size: {total_file_size}")
+    for status_code, count in sorted(status_counts.items()):
+        if count > 0:
+            print(f"{status_code}: {count}")
+    print()
 
-def main():
-    file_sizes = []
-    status_codes = defaultdict(int)
-    line_count = 0
+def signal_handler(sig, frame):
+    print_statistics()
+    sys.exit(0)
 
-    try:
-        for line in sys.stdin:
-            line_count += 1
-            parts = line.split()
-            if len(parts) != 7:
-                continue
+signal.signal(signal.SIGINT, signal_handler)
 
-            status_code = parts[-2]
-            if status_code.isdigit():
-                status_codes[int(status_code)] += 1
-
-            file_sizes.append(int(parts[-1]))
-
-            if line_count % 10 == 0:
-                print_statistics(file_sizes, status_codes)
-                file_sizes.clear()
-                status_codes.clear()
-    except KeyboardInterrupt:
-        print_statistics(file_sizes, status_codes)
-        sys.exit(0)
-
-
-if __name__ == "__main__":
-    main()
+for line in sys.stdin:
+    parts = line.split()
+    if len(parts) == 7:
+        ip, _, _, status_code, file_size = parts[0], parts[3], parts[5], int(parts[6]), int(parts[-1])
+        if status_code.isdigit():
+            status_code = int(status_code)
+            if status_code in status_counts:
+                status_counts[status_code] += 1
+        total_file_size += file_size
+        line_count += 1
+        if line_count % 10 == 0:
+            print_statistics()
