@@ -28,7 +28,7 @@ def extract_info(log_line):
 def print_stats(total_size, status_stats):
     '''Prints the accumulated statistics of the HTTP request log.
     '''
-    print('Total file size:', total_size, flush=True)
+    print('File size:', total_size, flush=True)
     for status_code in sorted(status_stats.keys()):
         num = status_stats.get(status_code, 0)
         if num > 0:
