@@ -1,6 +1,6 @@
 ## 0x05. N Queens
 
-![Chess grandmaster-Judit Polgar](https://www.crestbook.com/files/Judit-photo1_602x433.jpg)
+
 
 The N queens puzzle is the challenge of placing N non-attacking queens on an N×N chessboard. Write a program that solves the N queens problem.
 
