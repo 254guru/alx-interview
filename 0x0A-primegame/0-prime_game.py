@@ -18,6 +18,7 @@ def primeNumbers(n):
                 filtered[i] = False
     return primeNos
 
+
 def isWinner(x, nums):
     """
     Determines winner of Prime Game
