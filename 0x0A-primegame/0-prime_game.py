@@ -23,9 +23,12 @@ def isWinner(x, nums):
     maria_wins = [False] * (max_n + 1)
     for n in range(2, max_n + 1):
         # Find all primes up to n
-        primes_up_to_n = [num for num, is_prime in enumerate(sieve[:n + 1]) if is_prime]
+        primes_up_to_n = [
+                num for num, is_prime in enumerate(sieve[:n + 1]) if is_prime
+                ]
         # Dynamic programming approach to determine winning/losing position
-        # True if Maria (first player) has a winning strategy, False if she does not
+        # True if Maria (first player) has a winning strategy,
+        # False if she does not
         for prime in primes_up_to_n:
             if prime <= n and not maria_wins[n - prime]:
                 maria_wins[n] = True
